@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: sentinela-backend
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5433}/${DB_NAME:sentinela}
+    username: ${DB_USERNAME:sentinela}
+    password: ${DB_PASSWORD:sentinela}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false

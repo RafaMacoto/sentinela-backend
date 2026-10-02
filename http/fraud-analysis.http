@@ -1,0 +1,25 @@
+@baseUrl = http://localhost:8080/api
+
+### Create Fraud Analysis
+POST {{baseUrl}}/fraud-analyses
+Content-Type: application/json
+
+{
+  "transactionId": "{{transactionId}}",
+  "riskScore": 78.50,
+  "riskLevel": "HIGH",
+  "reason": "High-value transaction from an unfamiliar recipient."
+}
+
+> {%
+  client.global.set("fraudAnalysisId", response.body.id);
+%}
+
+### Get All Fraud Analyses
+GET {{baseUrl}}/fraud-analyses
+
+### Get Fraud Analysis By ID
+GET {{baseUrl}}/fraud-analyses/{{fraudAnalysisId}}
+
+### Get Analyses By Transaction ID
+GET {{baseUrl}}/fraud-analyses/transaction/{{transactionId}}

@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:8080/api
+
+### Create Account
+POST {{baseUrl}}/accounts
+Content-Type: application/json
+
+{
+  "customerId": "{{customerId}}",
+  "accountNumber": "BR1234567890123456789012345",
+  "accountType": "CHECKING",
+  "currency": "BRL"
+}
+
+> {%
+  client.global.set("accountId", response.body.id);
+%}
+
+### Get All Accounts
+GET {{baseUrl}}/accounts
+
+### Get Account By ID
+GET {{baseUrl}}/accounts/{{accountId}}
+
+### Update Account
+PUT {{baseUrl}}/accounts/{{accountId}}
+Content-Type: application/json
+
+{
+  "customerId": "{{customerId}}",
+  "accountNumber": "BR1234567890123456789012345",
+  "accountType": "CHECKING",
+  "currency": "BRL"
+}
+
+### Delete Account
+DELETE {{baseUrl}}/accounts/{{accountId}}

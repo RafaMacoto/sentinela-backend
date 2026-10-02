@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:8080/api
+
+### Create Device
+POST {{baseUrl}}/devices
+Content-Type: application/json
+
+{
+  "customerId": "{{customerId}}",
+  "deviceIdentifier": "rafael-pixel-8",
+  "deviceType": "ANDROID",
+  "trusted": true
+}
+
+> {%
+  client.global.set("deviceId", response.body.id);
+%}
+
+### Get All Devices
+GET {{baseUrl}}/devices
+
+### Get Device By ID
+GET {{baseUrl}}/devices/{{deviceId}}
+
+### Update Device
+PUT {{baseUrl}}/devices/{{deviceId}}
+Content-Type: application/json
+
+{
+  "customerId": "{{customerId}}",
+  "deviceIdentifier": "rafael-pixel-8",
+  "deviceType": "ANDROID",
+  "trusted": true
+}
+
+### Delete Device
+DELETE {{baseUrl}}/devices/{{deviceId}}

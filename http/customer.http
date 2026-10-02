@@ -1,0 +1,36 @@
+@baseUrl = http://localhost:8080/api
+
+### Create Customer
+POST {{baseUrl}}/customers
+Content-Type: application/json
+
+{
+  "name": "Rafael Silva",
+  "email": "rafael@example.com",
+  "documentNumber": "12345678901",
+  "phoneNumber": "+5511999999999"
+}
+
+> {%
+  client.global.set("customerId", response.body.id);
+%}
+
+### Get All Customers
+GET {{baseUrl}}/customers
+
+### Get Customer By ID
+GET {{baseUrl}}/customers/{{customerId}}
+
+### Update Customer
+PUT {{baseUrl}}/customers/{{customerId}}
+Content-Type: application/json
+
+{
+  "name": "Rafael Silva Updated",
+  "email": "rafael.updated@example.com",
+  "documentNumber": "12345678901",
+  "phoneNumber": "+5511988888888"
+}
+
+### Delete Customer
+DELETE {{baseUrl}}/customers/{{customerId}}

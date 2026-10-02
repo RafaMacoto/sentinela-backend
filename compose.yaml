@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${DB_NAME:-sentinela}
+      POSTGRES_USER: ${DB_USERNAME:-sentinela}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-sentinela}
+    ports:
+      - "${DB_PORT:-5433}:5432"
+    volumes:
+      - sentinela_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  sentinela_postgres_data:

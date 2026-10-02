@@ -1,0 +1,20 @@
+@baseUrl = http://localhost:8080/api
+
+### Create Transaction
+POST {{baseUrl}}/transactions
+Content-Type: application/json
+
+{
+  "customerId": "{{customerId}}",
+  "accountId": "{{accountId}}",
+  "recipientId": "22222222-2222-2222-2222-222222222222",
+  "deviceId": "{{deviceId}}",
+  "amount": 8700.00,
+  "timestamp": "2026-10-01T03:12:00",
+  "newDevice": false,
+  "newRecipient": true
+}
+
+> {%
+  client.global.set("transactionId", response.body.id);
+%}
