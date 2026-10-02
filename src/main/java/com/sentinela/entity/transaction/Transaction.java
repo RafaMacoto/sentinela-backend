@@ -28,13 +28,13 @@ public class Transaction {
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "customer_ref_id", foreignKey = @ForeignKey(name = "fk_transactions_customer"))
+	// Legacy transaction rows may reference customers/devices that are not in their tables.
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(
+			name = "customer_id",
+			nullable = false,
+			foreignKey = @ForeignKey(jakarta.persistence.ConstraintMode.NO_CONSTRAINT))
 	private Customer customer;
-
-	// Keep the original ID columns intact for transactions created before domain relationships existed.
-	@Column(name = "customer_id", nullable = false)
-	private UUID customerId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "account_id")
@@ -43,12 +43,12 @@ public class Transaction {
 	@Column(nullable = false)
 	private UUID recipientId;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "device_ref_id", foreignKey = @ForeignKey(name = "fk_transactions_device"))
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(
+			name = "device_id",
+			nullable = false,
+			foreignKey = @ForeignKey(jakarta.persistence.ConstraintMode.NO_CONSTRAINT))
 	private Device device;
-
-	@Column(name = "device_id", nullable = false)
-	private UUID deviceId;
 
 	@Column(nullable = false)
 	private BigDecimal amount;
@@ -75,16 +75,13 @@ public class Transaction {
 			boolean newDevice,
 			boolean newRecipient) {
 		this.customer = customer;
-		this.customerId = customer.getId();
 		this.account = account;
 		this.recipientId = recipientId;
 		this.device = device;
-		this.deviceId = device.getId();
 		this.amount = amount;
 		this.timestamp = timestamp;
 		this.newDevice = newDevice;
 		this.newRecipient = newRecipient;
 	}
-
 
 }
